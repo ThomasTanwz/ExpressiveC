@@ -24,3 +24,5 @@ void destructObject(Object* o)
 {
   free(o);
 }
+
+

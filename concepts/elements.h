@@ -1,3 +1,6 @@
+#include <assert.h>
+#include <stdlib.h>
+
 #ifndef ELEMENTS
 #define ELEMENTS
 
