@@ -1,28 +1,42 @@
 #include "elements.h"
 
 /*
- *typedefs go here
- * */
-typdef struct object Object;
-
-/*
  *Constructor for object
  * */
-void constructObject(int* propertyList, unsigned int propertyNum)
+void constructObject(Object* target, char* name, int root)
 {
-  assert(propertyNum != 0);
-  Object* newObject = malloc(sizeof(Object));
-  newObject -> properties = malloc(sizeof(int) * propertyNum);
-  newObject -> properties = propertyList;
-  newObject -> pNum = propertyNum;
+  target = malloc(sizeof(Object));
+  target -> name = malloc(sizeof(char) * MAX_ARG_SIZE);
+  strcpy(target -> name, name);
+  target -> root = root;
+  target -> subflow = malloc(sizeof(void*) * MAX_FLOW_SIZE);
+  target -> flowIndex = 0;
 }
 
 /*
- * Destructor for object
+ * Constructor for property
  * */
-void destructObject(Object* o)
+void constructProperty(Property* target, char* name)
 {
-  free(o);
+   target -> name = malloc(sizeof(char) * MAX_ARG_SIZE);
+   strcpy(target -> name, name);
 }
 
+void objectwise(Object* start, Object* end)
+{
+  int index = start -> flowIndex;
+  assert(index < MAX_FLOW_SIZE);
+  (start -> subflow)[index] = (Object*)(start -> subflow)[index];
+  (start -> subflow)[index] = &(*(end));
+  start -> flowIndex += 1;
+}
+
+void objectPropertywise(Object* start, Property* end)
+{
+  int index = start -> flowIndex;
+  assert(index < MAX_FLOW_SIZE);
+  (start -> subflow)[index] = (Property*)(start -> subflow)[index];
+  (start -> subflow)[index] = &(*(end));
+  start -> flowIndex += 1;
+}
 
