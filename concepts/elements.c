@@ -3,25 +3,31 @@
 /*
  *Constructor for object
  * */
-void constructObject(Object* target, char* name, int root)
+Object* constructObject(char* name, int root)
 {
-  target = malloc(sizeof(Object));
-  target -> name = malloc(sizeof(char) * MAX_ARG_SIZE);
+  Object* target = malloc(sizeof(Object));
+  target -> name = malloc(strlen(name) + 1);
   strcpy(target -> name, name);
   target -> root = root;
   target -> subflow = malloc(sizeof(void*) * MAX_FLOW_SIZE);
   target -> flowIndex = 0;
+  return target;
 }
 
 /*
  * Constructor for property
  * */
-void constructProperty(Property* target, char* name)
+Property* constructProperty(char* name)
 {
-   target -> name = malloc(sizeof(char) * MAX_ARG_SIZE);
-   strcpy(target -> name, name);
+  Property* target = malloc(sizeof(Property));
+  target -> name = malloc(strlen(name) + 1);
+  strcpy(target -> name, name);
+  return target;
 }
 
+/*
+ *objectwise operator
+ * */
 void objectwise(Object* start, Object* end)
 {
   int index = start -> flowIndex;
@@ -31,6 +37,9 @@ void objectwise(Object* start, Object* end)
   start -> flowIndex += 1;
 }
 
+/*
+ *object-propertywise operator
+ * */
 void objectPropertywise(Object* start, Property* end)
 {
   int index = start -> flowIndex;
