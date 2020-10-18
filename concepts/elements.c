@@ -34,6 +34,7 @@ void objectwise(Object* start, Object* end)
   assert(index < MAX_FLOW_SIZE);
   (start -> subflow)[index] = (Object*)(start -> subflow)[index];
   (start -> subflow)[index] = &(*(end));
+  start -> flowArray[index] = OBJECT_FLOW;
   start -> flowIndex += 1;
 }
 
@@ -46,6 +47,7 @@ void objectPropertywise(Object* start, Property* end)
   assert(index < MAX_FLOW_SIZE);
   (start -> subflow)[index] = (Property*)(start -> subflow)[index];
   (start -> subflow)[index] = &(*(end));
+  start -> flowArray[index] = PROPERTY_FLOW;
   start -> flowIndex += 1;
 }
 

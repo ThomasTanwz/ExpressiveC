@@ -8,8 +8,9 @@
 /*
  *Definitions of constants go here
  * */
-#define MAX_FLOW_SIZE 5
-
+#define MAX_FLOW_SIZE 10
+#define PROPERTY_FLOW 1
+#define OBJECT_FLOW 2
 /*
  *typedefs go here
  * */
@@ -25,6 +26,7 @@ struct object
   int root;
   void** subflow;
   int flowIndex;
+  int flowArray[MAX_FLOW_SIZE];
 };
 
 struct property
