@@ -1,6 +1,9 @@
 #include "expression.c"
 
-main(){
+/*
+ *This driver program is mainly used for testing element constructing
+ * */
+void main(void){
   char* a1 = "tree";
   char* b1 = "acyclic";
   char* b2 = "connected";
