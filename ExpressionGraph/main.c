@@ -1,16 +1,7 @@
-#include "./taskQueue.c"
+#include "./expression_constructor.c"
 
 void main(void)
 {
-  Queue* testQ = constructQueue("ellingham graph");
-  Task* a = constructTask("name1", 1);
-  Task* b = constructTask("name2", 1);
-  Task* c = constructTask("name3", 1);
-  addTask(testQ, a);
-  addTask(testQ, b);
-  addTask(testQ, c);
-  printQ(testQ);
-  popTask(testQ);
-  printf(testQ -> tail -> name);
-  printQ(testQ);
+ char* array[10] = {"tree", "1acyclic", "2set", "|", "2edge", "2stuff", "|", "1nontopo", "2vertex", "2bipartite"};
+ construct_expression_queue(array, 10); 
 }
