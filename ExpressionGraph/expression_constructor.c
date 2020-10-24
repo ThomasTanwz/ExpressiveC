@@ -48,13 +48,36 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
     {
       //need more implementation of separator section.
       //How to represent it in the Queue to create graph levels?
+      level += 1;
       *arrReader ++;
     }
-   
     index ++;
   }
   //testing Queue
   printQ(graphQ);
   
   return graphQ;
+}
+
+Object* construct_expression_graph(Queue* graphQ)
+{
+  Object* exprGraph = constructObject(graphQ -> tail -> name, 1);
+  popTask(graphQ);
+  Object* parent = exprGraph;
+  while(!empty(graphQ))
+  {
+    int eletype = graphQ -> tail -> element;
+    char* elename = graphQ -> tail -> name;
+    if(eletype == PROPERTY_FLOW)
+    {
+      Property* newProp = constructProperty(elename);
+      objectPropertywise(parent, newProp);
+    }
+    else if(eletype == OBJECT_FLOW)
+    {
+      Object* newObj = constructObject(elename, 0);
+      objectwise(parent, newObj);
+    }
+  }
+  return exprGraph;
 }
