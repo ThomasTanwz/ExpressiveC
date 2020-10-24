@@ -3,7 +3,9 @@
 void main(void)
 {
   Queue* testQ = constructQueue("ellingham graph");
-  addTask(testQ, "snake graph");
-  addTask(testQ, "dijkstra's theorem");
+  Task* a = constructTask("name1", 1);
+  Task* b = constructTask("name2", 1);
+  addTask(testQ, a);
+  addTask(testQ, b);
   printQ(testQ);
 }

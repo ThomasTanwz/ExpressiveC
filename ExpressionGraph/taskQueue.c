@@ -6,6 +6,7 @@ Task* constructTask(char* taskName, int element)
   newTask -> name = malloc(strlen(taskName) + 1);
   strcpy(newTask -> name, taskName);
   newTask -> element = element;
+  newTask -> next = NULL;
 }
 
 Queue* constructQueue(char* rootName)
@@ -34,14 +35,17 @@ void popTask(Queue* TQ)
     TQ -> tail = NULL;
     TQ -> taskCount = 0;
   }
-  else{
+  else
+  {
     for(Task* it = TQ -> head; it != TQ -> tail; it = it -> next)
     {
       if(it -> next == TQ -> tail)
       {
-        free(TQ -> tail);
+        Task* tmp = it -> next;
+	free(tmp);
 	TQ -> tail = it;
 	TQ -> taskCount --;
+	break;
       }
     }
   }
@@ -54,9 +58,9 @@ int empty(Queue* TQ)
 
 void printQ(Queue* TQ)
 {
-  for(Task* it = TQ -> head; it != TQ -> tail; it = it -> next)
+  for(Task* it = TQ -> head; it != NULL; it = it -> next)
   {
-    printf(it -> name);
+    printf("%s\n", it -> name);
   }
 }
 
