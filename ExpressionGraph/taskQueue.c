@@ -44,6 +44,7 @@ void popTask(Queue* TQ)
         Task* tmp = it -> next;
 	free(tmp);
 	TQ -> tail = it;
+	it -> next = NULL;
 	TQ -> taskCount --;
 	break;
       }
