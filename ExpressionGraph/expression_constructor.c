@@ -66,6 +66,10 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
  * */
 Object* construct_expression_graph(Queue* graphQ)
 {
+  Object* objArray[graphQ -> taskCount];
+  memset(objArray, 0, sizeof(Object*) * graphQ -> taskCount);
+  int objCount = 0;
+  Object* objPtr;
   Object* exprGraph = constructObject(graphQ -> tail -> name, 1);
   Object* parent = exprGraph;
   popTask(graphQ);
@@ -81,8 +85,19 @@ Object* construct_expression_graph(Queue* graphQ)
     else if(eletype == OBJECT_FLOW)
     {
       Object* newObj = constructObject(elename, 0);
+      objArray[objCount] = newObj;
+      objCount ++;
+      
       objectwise(parent, newObj); 
     }
+    else if(eletype == SEPARATOR_FLOW)
+    {
+      assert(objCount >= 1);
+      objPtr = objArray[objCount-1];
+      parent = objPtr;
+    }
+    popTask(graphQ);
   }
+  //free((void*)objArray);
   return exprGraph;
 }
