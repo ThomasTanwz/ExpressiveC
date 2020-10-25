@@ -61,7 +61,7 @@ void printQ(Queue* TQ)
 {
   for(Task* it = TQ -> head; it != NULL; it = it -> next)
   {
-    printf("%s\n", it -> name);
+    printf("%d%s\n",it -> element, it -> name);
   }
 }
 

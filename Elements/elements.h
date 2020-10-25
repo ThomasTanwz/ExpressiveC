@@ -11,6 +11,7 @@
 #define MAX_FLOW_SIZE 10
 #define PROPERTY_FLOW 1
 #define OBJECT_FLOW 2
+#define SEPARATOR_FLOW 3
 /*
  *typedefs go here
  * */

@@ -6,6 +6,7 @@
  A task can be:
  1. An object
  2. A property
+ 3. A level separator that signals the construction of a new level
  * */
 
 
@@ -21,7 +22,6 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
 {
   assert(arrSize >= 1);
   int index = 0;
-  int level = 0;
   char** arrReader = flowArr;
   //put the root task and get the queue started
   Queue* graphQ = constructQueue(*arrReader);
@@ -31,6 +31,7 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
   while(index < arrSize)
   {
     int flowType = (*arrReader)[0] - '0'; //convert the first character to int
+    int sepSig = '|' - '0'; //define the value of a separator
     Task* newTask;
     if(flowType == PROPERTY_FLOW)
     {
@@ -44,12 +45,11 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
       *arrReader ++;
       addTask(graphQ, newTask);
     }
-    else //else it is a '|' separator
+    else if(flowType == sepSig)
     {
-      //need more implementation of separator section.
-      //How to represent it in the Queue to create graph levels?
-      level += 1;
+      newTask = constructTask(*arrReader, SEPARATOR_FLOW); 
       *arrReader ++;
+      addTask(graphQ, newTask);
     }
     index ++;
   }
@@ -59,11 +59,16 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
   return graphQ;
 }
 
+/*
+ Construct expression graph with the Queue.
+ element-wise construction and level-wise
+ construction
+ * */
 Object* construct_expression_graph(Queue* graphQ)
 {
   Object* exprGraph = constructObject(graphQ -> tail -> name, 1);
-  popTask(graphQ);
   Object* parent = exprGraph;
+  popTask(graphQ);
   while(!empty(graphQ))
   {
     int eletype = graphQ -> tail -> element;
@@ -76,7 +81,7 @@ Object* construct_expression_graph(Queue* graphQ)
     else if(eletype == OBJECT_FLOW)
     {
       Object* newObj = constructObject(elename, 0);
-      objectwise(parent, newObj);
+      objectwise(parent, newObj); 
     }
   }
   return exprGraph;
