@@ -21,5 +21,6 @@ To conclude, properties are always pointed to but never point to another object/
 
 ### PARSE ###
 
-
+### EXTRA TOOLS ###
+**taskQueue** is a simple queue written for the construction of graph
 

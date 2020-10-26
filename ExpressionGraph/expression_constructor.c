@@ -54,7 +54,7 @@ Queue* construct_expression_queue(char** flowArr, int arrSize)
     index ++;
   }
   //testing Queue
-  printQ(graphQ);
+  //printQ(graphQ);
   
   return graphQ;
 }
@@ -69,6 +69,7 @@ Object* construct_expression_graph(Queue* graphQ)
   Object* objArray[graphQ -> taskCount];
   memset(objArray, 0, sizeof(Object*) * graphQ -> taskCount);
   int objCount = 0;
+  int objIndex = 0;
   Object* objPtr;
   Object* exprGraph = constructObject(graphQ -> tail -> name, 1);
   Object* parent = exprGraph;
@@ -87,17 +88,18 @@ Object* construct_expression_graph(Queue* graphQ)
       Object* newObj = constructObject(elename, 0);
       objArray[objCount] = newObj;
       objCount ++;
-      
+      //for debug purpose
+      printf("constructing between %s, %s\n", parent -> name, newObj -> name); 
       objectwise(parent, newObj); 
     }
     else if(eletype == SEPARATOR_FLOW)
     {
       assert(objCount >= 1);
-      objPtr = objArray[objCount-1];
+      objPtr = objArray[objIndex];
       parent = objPtr;
+      objIndex ++;
     }
     popTask(graphQ);
   }
-  //free((void*)objArray);
   return exprGraph;
 }
