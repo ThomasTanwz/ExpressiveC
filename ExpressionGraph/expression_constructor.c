@@ -82,6 +82,10 @@ Object* construct_expression_graph(Queue* graphQ)
     {
       Property* newProp = constructProperty(elename);
       objectPropertywise(parent, newProp);
+      printf("constructing between ");
+      printf("\033[1;33m");
+      printf("%s, %s\n", parent -> name, newProp -> name);
+      printf("\033[0m");
     }
     else if(eletype == OBJECT_FLOW)
     {
@@ -89,7 +93,10 @@ Object* construct_expression_graph(Queue* graphQ)
       objArray[objCount] = newObj;
       objCount ++;
       //for debug purpose
-      printf("constructing between %s, %s\n", parent -> name, newObj -> name); 
+      printf("constructing between ");
+      printf("\033[1;36m");
+      printf("%s, %s\n", parent -> name, newObj -> name);
+      printf("\033[0m"); 
       objectwise(parent, newObj); 
     }
     else if(eletype == SEPARATOR_FLOW)
